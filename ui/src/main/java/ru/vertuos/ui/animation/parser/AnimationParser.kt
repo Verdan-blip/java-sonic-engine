@@ -1,8 +1,8 @@
-package ru.vertuos.ui.animation.parser;
+package ru.vertuos.ui.animation.parser
 
-import ru.vertuos.ui.animation.container.AnimationContainer;
+import ru.vertuos.ui.animation.container.AnimationContainer
 
-public interface AnimationParser<T> {
+interface AnimationParser<T> {
 
-    AnimationContainer<T> parse();
+    fun parse(): AnimationContainer<T>
 }

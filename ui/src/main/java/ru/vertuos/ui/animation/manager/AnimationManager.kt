@@ -1,35 +1,26 @@
-package ru.vertuos.ui.animation.manager;
+package ru.vertuos.ui.animation.manager
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-import lombok.Getter;
-import lombok.Setter;
-import ru.vertuos.ui.animation.container.AnimationContainer;
+import com.badlogic.gdx.graphics.g2d.Animation
+import ru.vertuos.ui.animation.container.AnimationContainer
 
-public class AnimationManager<T> {
+class AnimationManager<T>(
+    private val animationContainer: AnimationContainer<T>
+) {
 
-    protected final AnimationContainer<T> animationContainer;
+    var currentAnimation: Animation<T>? = null
+        private set
 
-    @Getter
-    protected Animation<T> currentAnimation;
+    private var accumulatedTime: Float = 0f
 
-    private float accumulatedTime;
+    var isFlipped: Boolean = false
 
-    @Getter
-    @Setter
-    protected boolean isFlipped;
-
-    public AnimationManager(AnimationContainer<T> animationContainer) {
-        this.animationContainer = animationContainer;
-        this.accumulatedTime = 0f;
+    fun selectAnimation(key: String) {
+        accumulatedTime = 0f
+        currentAnimation = animationContainer.getAnimation(key)
     }
 
-    public void selectAnimation(String key) {
-        accumulatedTime = 0f;
-        currentAnimation = animationContainer.getAnimation(key);
-    }
-
-    public T getCurrentFrame(float dt) {
-        accumulatedTime += dt;
-        return currentAnimation.getKeyFrame(accumulatedTime);
+    fun getCurrentFrame(dt: Float): T? {
+        accumulatedTime += dt
+        return currentAnimation?.getKeyFrame(accumulatedTime)
     }
 }

@@ -1,21 +1,19 @@
-package ru.vertuos.engine.hedgehog.sonic;
+package ru.vertuos.engine.hedgehog.sonic
 
-import ru.vertuos.engine.hedgehog.Hedgehog;
+import ru.vertuos.engine.hedgehog.Hedgehog
+import ru.vertuos.engine.math.Vector2f
 
-public class Sonic extends Hedgehog {
+class Sonic : Hedgehog() {
 
-    public Sonic() {
-        super();
-        setRingsCount(0);
-        setAccelerationValue(0.5f);
-        setHp(100);
-        setState(State.IDLE);
-        setMass(35f);
-        setJumpValue(0.5f);
-        setLivesCount(5);
-        setStrengthValue(0.5f);
-        setWidth(0.5f);
-        setHeight(1);
-        setDirection(Direction.FORWARD);
+    init {
+        ringsCount = 0
+        hp = 100f
+        state = State.IDLE
+        mass = 35f
+        jumpValue = 0.5f
+        livesCount = 5
+        strengthValue = 0.5f
+        size = Vector2f(0.5f, 1f)
+        direction = Direction.FORWARD
     }
 }

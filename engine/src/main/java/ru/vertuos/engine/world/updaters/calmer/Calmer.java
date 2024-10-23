@@ -1,4 +1,4 @@
-package ru.vertuos.engine.world.handlers.calmer;
+package ru.vertuos.engine.world.updaters.calmer;
 
 public interface Calmer<T> {
 

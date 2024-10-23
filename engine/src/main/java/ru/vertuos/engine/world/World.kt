@@ -1,30 +1,22 @@
-package ru.vertuos.engine.world;
+package ru.vertuos.engine.world
 
-import ru.vertuos.engine.map.object.CollisionableGameObject;
-import ru.vertuos.engine.world.object.DynamicGameObject;
-import ru.vertuos.engine.world.object.GameObject;
+import ru.vertuos.engine.map.CollisionableGameObject
+import ru.vertuos.engine.world.obj.DynamicGameObject
+import ru.vertuos.engine.world.obj.GameObject
 
-import java.util.ArrayList;
-import java.util.List;
+abstract class World {
 
-public abstract class World {
+    protected val mapObjects: MutableList<CollisionableGameObject> = mutableListOf()
 
-    protected final List<CollisionableGameObject> mapObjects;
+    protected val dynamicGameObjects: MutableList<DynamicGameObject> = mutableListOf()
 
-    protected final List<DynamicGameObject> dynamicGameObjects;
-
-    public World() {
-        this.mapObjects = new ArrayList<>();
-        this.dynamicGameObjects = new ArrayList<>();
-    }
-
-    public void add(GameObject object) {
-        if (object instanceof CollisionableGameObject) {
-            mapObjects.add((CollisionableGameObject) object);
-        } else if (object instanceof DynamicGameObject) {
-            dynamicGameObjects.add((DynamicGameObject) object);
+    fun add(obj: GameObject) {
+        if (obj is CollisionableGameObject) {
+            mapObjects.add(obj)
+        } else if (obj is DynamicGameObject) {
+            dynamicGameObjects.add(obj)
         }
     }
 
-    public abstract void step(float dt);
+    abstract fun step(dt: Float)
 }

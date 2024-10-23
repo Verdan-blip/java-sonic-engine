@@ -1,14 +1,14 @@
-package ru.vertuos.ui.animation.contracts;
+package ru.vertuos.ui.animation.contracts
 
-public interface HedgehogAnimationContract {
+object HedgehogAnimationContract {
 
-    String KEY_IDLE = "idle";
-    String KEY_WALK = "walk";
-    String KEY_RUN = "run";
-    String KEY_SPIN = "spin";
-    String KEY_SPINDASH = "spindash";
-    String KEY_LOOK_UP = "look_up";
-    String KEY_DUCK = "duck";
-    String KEY_STOP = "stop";
-    String KEY_BALANCING = "balancing";
+    const val KEY_IDLE = "idle"
+    const val KEY_WALK = "walk"
+    const val KEY_RUN = "run"
+    const val KEY_SPIN = "spin"
+    const val KEY_SPINDASH = "spindash"
+    const val KEY_LOOK_UP = "look_up"
+    const val KEY_DUCK = "duck"
+    const val KEY_STOP = "stop"
+    const val KEY_BALANCING = "balancing"
 }

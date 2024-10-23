@@ -1,65 +1,44 @@
-package ru.vertuos.engine.world;
+package ru.vertuos.engine.world
 
-import ru.vertuos.engine.map.object.CollisionableGameObject;
-import ru.vertuos.engine.world.handlers.calmer.Calmer;
-import ru.vertuos.engine.world.handlers.calmer.VelocityCalmer;
-import ru.vertuos.engine.world.handlers.gravity.GravityResolver;
-import ru.vertuos.engine.world.handlers.gravity.VerticalGravityResolver;
-import ru.vertuos.engine.world.handlers.updater.PositionUpdater;
-import ru.vertuos.engine.world.handlers.updater.Updater;
-import ru.vertuos.engine.world.handlers.updater.VelocityUpdater;
-import ru.vertuos.engine.world.object.DynamicGameObject;
+import ru.vertuos.engine.math.Vector2f
+import ru.vertuos.engine.math.intersects
+import ru.vertuos.engine.world.updaters.calmer.Calmer
+import ru.vertuos.engine.world.updaters.calmer.VelocityCalmer
+import ru.vertuos.engine.world.updaters.gravity.GravityResolver
+import ru.vertuos.engine.world.updaters.gravity.VerticalGravityResolver
+import ru.vertuos.engine.world.updaters.updater.PositionUpdater
+import ru.vertuos.engine.world.updaters.updater.Updater
+import ru.vertuos.engine.world.updaters.updater.VelocityUpdater
+import ru.vertuos.engine.world.obj.DynamicGameObject
 
-public class TiledWorld extends World {
+class TiledWorld : World() {
 
-    private final Updater<DynamicGameObject> velocityUpdater;
+    private val velocityUpdater: Updater<DynamicGameObject> = VelocityUpdater()
 
-    private final Updater<DynamicGameObject> positionUpdater;
+    private val positionUpdater: Updater<DynamicGameObject> = PositionUpdater()
 
-    private final Calmer<DynamicGameObject> velocityCalmer;
+    private val velocityCalmer: Calmer<DynamicGameObject> = VelocityCalmer()
 
-    private final GravityResolver<DynamicGameObject> gravityResolver;
+    private val gravityResolver: GravityResolver<DynamicGameObject> = VerticalGravityResolver()
 
-    public TiledWorld() {
-        super();
-        velocityUpdater = new VelocityUpdater();
-        positionUpdater = new PositionUpdater();
-        gravityResolver = new VerticalGravityResolver();
+    override fun step(dt: Float) {
+        dynamicGameObjects.forEach { obj ->
 
-        velocityCalmer = new VelocityCalmer();
-    }
+            velocityCalmer.calm(obj, dt)
+            gravityResolver.resolve(obj, dt)
 
-    @Override
-    public void step(float dt) {
-        for (DynamicGameObject object : dynamicGameObjects) {
+            velocityUpdater.update(obj, dt)
+            positionUpdater.update(obj, dt)
 
-            velocityCalmer.calm(object, dt);
-            gravityResolver.resolve(object, dt);
+            obj.isOnGround = false
 
-            velocityUpdater.update(object, dt);
-            positionUpdater.update(object, dt);
-
-            object.setOnGround(false);
-
-            for (CollisionableGameObject mapObject : mapObjects) {
-
-                float dPosX = object.getPositionX();
-                float dPosY = object.getPositionY();
-                float dW = object.getWidth();
-                float dH = object.getHeight();
-
-                float x = mapObject.getPositionX();
-                float y = mapObject.getPositionY();
-                float w = mapObject.getWidth();
-                float h = mapObject.getHeight();
-
-                if (dPosX + dW > x && dPosX < x + w && dPosY + dH > y && dPosY < y + h) {
-                    mapObject.onCollide(object);
+            for (mapObject in mapObjects) {
+                if (intersects(obj, mapObject)) {
+                    mapObject.onCollide(obj)
                 }
             }
 
-            object.setAccelerationX(0f);
-            object.setAccelerationY(0f);
+            obj.acceleration = Vector2f.Zero
         }
     }
 }

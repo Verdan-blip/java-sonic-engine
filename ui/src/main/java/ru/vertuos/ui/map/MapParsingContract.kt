@@ -1,16 +1,16 @@
-package ru.vertuos.ui.map;
+package ru.vertuos.ui.map
 
-public interface MapParsingContract {
+object MapParsingContract {
 
-    String LAYER_MAIN = "Main";
+    const val LAYER_MAIN = "Main"
 
-    String LAYER_COLLISION = "Collision";
+    const val LAYER_COLLISION = "Collision"
 
-    String NAME_PLATFORM = "platform";
+    const val NAME_PLATFORM = "platform"
 
-    String NAME_INCLINE = "incline";
+    const val NAME_INCLINE = "incline"
 
-    String NAME_CIRCLED_INCLINE = "circled_incline";
+    const val NAME_CIRCLED_INCLINE = "circled_incline"
 
-    String NAME_HYPERBOLIC_INCLINE = "hyperbolic_incline";
+    const val NAME_HYPERBOLIC_INCLINE = "hyperbolic_incline"
 }

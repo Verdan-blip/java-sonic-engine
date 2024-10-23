@@ -1,13 +1,8 @@
-package ru.vertuos.engine.world.object;
+package ru.vertuos.engine.world.obj
 
-import lombok.Getter;
-import lombok.Setter;
+import ru.vertuos.engine.math.Vector2f
 
-@Getter
-@Setter
-public abstract class GameObject {
-
-    protected float positionX, positionY;
-
-    protected float width, height;
+abstract class GameObject {
+    var position: Vector2f = Vector2f.Zero
+    var size: Vector2f = Vector2f.Zero
 }

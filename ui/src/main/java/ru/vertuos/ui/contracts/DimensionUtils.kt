@@ -1,16 +1,16 @@
-package ru.vertuos.ui.contracts;
+package ru.vertuos.ui.contracts
 
-public class DimensionUtils {
+import ru.vertuos.engine.math.Vector2f
 
-    private static final float METRES_TO_PIXELS = 32f;
 
-    private static final float PIXELS_TO_METRES = 1f / METRES_TO_PIXELS;
+private const val METRES_TO_PIXELS = 32f
 
-    public static float metresToPixels(float metres) {
-        return metres * METRES_TO_PIXELS;
-    }
+private const val PIXELS_TO_METRES = 1f / METRES_TO_PIXELS
 
-    public static float pixelsToMetres(float pixels) {
-        return pixels * PIXELS_TO_METRES;
-    }
-}
+fun Float.toPixels(): Float = this * METRES_TO_PIXELS
+
+fun Float.toMetres(): Float = this * PIXELS_TO_METRES;
+
+fun Vector2f.toPixels(): Vector2f = Vector2f(x.toPixels(), y.toPixels())
+
+fun Vector2f.toMetres(): Vector2f = Vector2f(x.toMetres(), y.toMetres())

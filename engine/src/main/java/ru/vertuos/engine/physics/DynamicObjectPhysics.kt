@@ -1,34 +1,28 @@
-package ru.vertuos.engine.physics;
+package ru.vertuos.engine.physics
 
-import ru.vertuos.engine.world.object.DynamicGameObject;
+import ru.vertuos.engine.math.Vector2f
+import ru.vertuos.engine.math.copied
+import ru.vertuos.engine.math.div
+import ru.vertuos.engine.math.plus
+import ru.vertuos.engine.world.obj.DynamicGameObject
 
-public class DynamicObjectPhysics<D extends DynamicGameObject> implements Physics<D> {
+open class DynamicObjectPhysics<D : DynamicGameObject>(
+    val obj: D
+) : Physics<D> {
 
-    protected final D object;
-
-    public DynamicObjectPhysics(D object) {
-        this.object = object;
+    override fun applyForceToCenter(force: Vector2f) {
+        obj.acceleration += force / obj.mass
     }
 
-    @Override
-    public void applyForceToCenter(float forceX, float forceY) {
-        object.setAccelerationX(object.getAccelerationX() + forceX / object.getMass());
-        object.setAccelerationY(object.getAccelerationY() + forceY / object.getMass());
+    override fun applyLinearImpulseToCenter(impulse: Vector2f) {
+        obj.linearVelocity = impulse / obj.mass
     }
 
-    @Override
-    public  void applyLinearImpulseToCenter(float impulseX, float impulseY) {
-        object.setLinearVelocityX(impulseX / object.getMass());
-        object.setLinearVelocityY(impulseY / object.getMass());
+    override fun applyImpulseXToCenter(impulseX: Float) {
+        obj.linearVelocity = obj.linearVelocity.copied(x = impulseX / obj.mass)
     }
 
-    @Override
-    public void applyImpulseXToCenter(float impulseX) {
-        object.setLinearVelocityX(impulseX / object.getMass());
-    }
-
-    @Override
-    public void applyImpulseYToCenter(float impulseY) {
-        object.setLinearVelocityY(impulseY / object.getMass());
+    override fun applyImpulseYToCenter(impulseY: Float) {
+        obj.linearVelocity = obj.linearVelocity.copied(y = impulseY / obj.mass)
     }
 }

@@ -1,117 +1,116 @@
-package ru.vertuos.graphics;
+package ru.vertuos.graphics
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapProperties;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.ScreenUtils;
-import ru.vertuos.engine.hedgehog.sonic.Sonic;
-import ru.vertuos.engine.hedgehog.sonic.SonicMechanics;
-import ru.vertuos.engine.map.object.CollisionableGameObject;
-import ru.vertuos.engine.world.World;
-import ru.vertuos.engine.world.TiledWorld;
-import ru.vertuos.graphics.actor.SonicActor;
-import ru.vertuos.graphics.camera.FollowingCamera;
-import ru.vertuos.graphics.input.KeyboardInputProcessor;
-import ru.vertuos.ui.contracts.DimensionUtils;
-import ru.vertuos.ui.map.MapParsingContract;
-import ru.vertuos.ui.map.TiledMapParser;
+import com.badlogic.gdx.ApplicationAdapter
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer
+import com.badlogic.gdx.maps.tiled.TmxMapLoader
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
+import com.badlogic.gdx.utils.ScreenUtils
+import ru.vertuos.engine.hedgehog.sonic.Sonic
+import ru.vertuos.engine.hedgehog.sonic.SonicMechanics
+import ru.vertuos.engine.math.Vector2f
+import ru.vertuos.engine.world.TiledWorld
+import ru.vertuos.engine.world.World
+import ru.vertuos.graphics.actor.SonicActor
+import ru.vertuos.graphics.camera.FollowingCamera
+import ru.vertuos.graphics.input.KeyboardInputProcessor
+import ru.vertuos.ui.contracts.toMetres
+import ru.vertuos.ui.map.MapParsingContract
+import ru.vertuos.ui.map.TiledMapParser
 
-import java.util.List;
+class Main : ApplicationAdapter() {
 
+    private lateinit var batch: SpriteBatch
 
-public class Main extends ApplicationAdapter {
+    private lateinit var sonicActor: SonicActor
 
-    private static final float UNIT_SCALE_TO_512 = 1 / 1f;
+    private lateinit var followingCamera: FollowingCamera
 
-    private SpriteBatch batch;
+    private lateinit var tiledMapRenderer: OrthogonalTiledMapRenderer
 
-    private SonicActor sonicActor;
+    private lateinit var world: World
 
-    private FollowingCamera followingCamera;
-    private OrthogonalTiledMapRenderer tiledMapRenderer;
+    override fun create() {
 
-    private World world;
+        val processor = KeyboardInputProcessor()
+        Gdx.input.inputProcessor = processor
 
-    @Override
-    public void create() {
-        KeyboardInputProcessor processor = new KeyboardInputProcessor();
-        Gdx.input.setInputProcessor(processor);
+        batch = SpriteBatch()
 
-        batch = new SpriteBatch();
+        val tiledMapParser = TiledMapParser()
 
-        TiledMapParser tiledMapParser = new TiledMapParser();
+        val tiledMap = TmxMapLoader().load("maps/hill/hill.tmx")
+        val mapProperties = tiledMap.properties
+        val mapWidth: Int = mapProperties.get("width", Int::class.java)
+        val mapTileWidth: Int = mapProperties.get("tilewidth", Int::class.java)
 
-        TiledMap tiledMap = new TmxMapLoader().load("maps/hill/hill.tmx");
-        MapProperties mapProperties = tiledMap.getProperties();
-        int mapWidth = mapProperties.get("width", Integer.class);
-        int mapTileWidth = mapProperties.get("tilewidth", Integer.class);
+        val mapHeight: Int = mapProperties.get("height", Int::class.java)
+        val mapTileHeight: Int = mapProperties.get("tileheight", Int::class.java)
 
-        int mapHeight = mapProperties.get("height", Integer.class);
-        int mapTileHeight = mapProperties.get("tileheight", Integer.class);
+        val layers = tiledMap.layers
+        val mainLayer = layers.get(MapParsingContract.LAYER_MAIN) as TiledMapTileLayer
+        val collisionLayer = layers.get(MapParsingContract.LAYER_COLLISION)
 
-        MapLayers layers = tiledMap.getLayers();
-        TiledMapTileLayer mainLayer = (TiledMapTileLayer) layers.get(MapParsingContract.LAYER_MAIN);
-        MapLayer collisionLayer = layers.get(MapParsingContract.LAYER_COLLISION);
+        val collisionables = tiledMapParser.parseCollisionObjects(collisionLayer, UNIT_SCALE_TO_512)
 
-        List<CollisionableGameObject> collisionables = tiledMapParser
-            .parseCollisionObjects(collisionLayer, UNIT_SCALE_TO_512);
+        world = TiledWorld()
 
-        world = new TiledWorld();
+        val sonic = Sonic()
+        sonic.position = Vector2f(100f, 300f).toMetres()
 
-        Sonic sonic = new Sonic();
-        sonic.setPositionX(DimensionUtils.pixelsToMetres(100f));
-        sonic.setPositionY(DimensionUtils.pixelsToMetres(300f));
+        val sonicMechanics = SonicMechanics(sonic)
 
-        SonicMechanics sonicMechanics = new SonicMechanics(sonic);
+        sonicActor = SonicActor(sonic, sonicMechanics, processor)
 
-        sonicActor = new SonicActor(sonic, sonicMechanics, processor);
+        for (obj in collisionables) { world.add(obj) }
+        world.add(sonic)
 
-        for (CollisionableGameObject object : collisionables) { world.add(object); }
-        world.add(sonic);
-
-        followingCamera = new FollowingCamera();
-        followingCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        followingCamera.setFollowingObject(sonic);
-        followingCamera.setBoundsWhereToFollow(
-            new Rectangle(
-                0, 0,
-                mapWidth * mapTileWidth * UNIT_SCALE_TO_512,
-                mapHeight * mapTileHeight * UNIT_SCALE_TO_512
+        followingCamera = FollowingCamera()
+        followingCamera.setToOrtho(false, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
+        followingCamera.followingObject = sonic
+        followingCamera.boundsWhereToFollow = ru.vertuos.engine.math.Rectangle(
+            Vector2f(
+                x = 0f,
+                y = 0f
+            ),
+            Vector2f(
+                x = mapWidth * mapTileWidth * UNIT_SCALE_TO_512,
+                y = mapHeight * mapTileHeight * UNIT_SCALE_TO_512
             )
-        );
-        followingCamera.update();
+        )
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, UNIT_SCALE_TO_512);
-        tiledMapRenderer.setView(followingCamera);
+        followingCamera.update()
+
+        tiledMapRenderer = OrthogonalTiledMapRenderer(tiledMap, UNIT_SCALE_TO_512)
+        tiledMapRenderer.setView(followingCamera)
     }
 
-    @Override
-    public void render() {
-        float dt = Gdx.graphics.getDeltaTime();
-        sonicActor.processInput();
-        world.step(dt);
-        sonicActor.updateStates();
-        followingCamera.update(batch);
+    override fun render() {
+        val dt: Float = Gdx.graphics.deltaTime
 
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        tiledMapRenderer.setView(followingCamera);
-        tiledMapRenderer.render();
-        sonicActor.draw(batch, 1f);
-        batch.end();
+        sonicActor.processInput()
+
+        world.step(dt)
+        sonicActor.updateStates()
+
+        followingCamera.update()
+
+        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f)
+        batch.begin()
+        tiledMapRenderer.setView(followingCamera)
+        tiledMapRenderer.render()
+        sonicActor.draw(batch, 1f)
+        batch.end()
     }
 
-    @Override
-    public void dispose() {
-        batch.dispose();
-        tiledMapRenderer.dispose();
+    override fun dispose() {
+        batch.dispose()
+        tiledMapRenderer.dispose()
+    }
+
+    companion object {
+
+        private const val UNIT_SCALE_TO_512 = 1 / 1f
     }
 }

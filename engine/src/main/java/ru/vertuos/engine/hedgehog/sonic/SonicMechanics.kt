@@ -1,15 +1,15 @@
-package ru.vertuos.engine.hedgehog.sonic;
+package ru.vertuos.engine.hedgehog.sonic
 
-import ru.vertuos.engine.hedgehog.HedgehogMechanics;
+import ru.vertuos.engine.hedgehog.HedgehogMechanics
+import ru.vertuos.engine.hedgehog.sonic.SonicMechanics.SonicSpecialCommand
 
-public class SonicMechanics extends HedgehogMechanics<Sonic, SonicMechanics.SonicSpecialCommand> {
+class SonicMechanics(
+    hedgehog: Sonic
+) : HedgehogMechanics<Sonic, SonicSpecialCommand>(hedgehog) {
 
-    public enum SonicSpecialCommand {  }
+    enum class SonicSpecialCommand
 
-    public SonicMechanics(Sonic hedgehog) {
-        super(hedgehog);
+    override fun sendSpecialCommand(specialCommand: SonicSpecialCommand) {
+
     }
-
-    @Override
-    public void sendSpecialCommand(SonicSpecialCommand specialCommand) { }
 }

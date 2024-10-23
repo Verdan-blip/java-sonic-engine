@@ -1,77 +1,49 @@
-package ru.vertuos.graphics.hedgehog.listener;
+package ru.vertuos.graphics.hedgehog.listener
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import ru.vertuos.engine.hedgehog.Hedgehog;
-import ru.vertuos.engine.hedgehog.listener.HedgehogPropertyChangeListener;
-import ru.vertuos.engine.world.object.DynamicGameObject;
-import ru.vertuos.ui.animation.contracts.HedgehogAnimationContract;
-import ru.vertuos.ui.animation.manager.AnimationManager;
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import ru.vertuos.engine.hedgehog.Hedgehog
+import ru.vertuos.engine.hedgehog.listener.HedgehogPropertyChangeListener
+import ru.vertuos.engine.world.obj.DynamicGameObject.Direction
+import ru.vertuos.ui.animation.contracts.HedgehogAnimationContract
+import ru.vertuos.ui.animation.manager.AnimationManager
 
-public class SonicStateListener implements HedgehogPropertyChangeListener {
-
-    private final AnimationManager<TextureRegion> manager;
-
-    public SonicStateListener(AnimationManager<TextureRegion> manager) {
-        this.manager = manager;
-    }
-
-    @Override
-    public void onStateChange(Hedgehog.State state) {
-        switch (state) {
-            case IDLE:
-                manager.selectAnimation(HedgehogAnimationContract.KEY_IDLE);
-                break;
-            case WALK:
-                manager.selectAnimation(HedgehogAnimationContract.KEY_WALK);
-                break;
-            case RUN:
-                manager.selectAnimation(HedgehogAnimationContract.KEY_RUN);
-                break;
-            case SPIN:
-                manager.selectAnimation(HedgehogAnimationContract.KEY_SPIN);
-                break;
-            case SPINDASH:
-                manager.selectAnimation(HedgehogAnimationContract.KEY_SPINDASH);
+class SonicStateListener(
+    private val manager: AnimationManager<TextureRegion>
+) : HedgehogPropertyChangeListener {
+    override fun onStateChange(newState: Hedgehog.State) {
+        when (newState) {
+            Hedgehog.State.IDLE -> manager.selectAnimation(HedgehogAnimationContract.KEY_IDLE)
+            Hedgehog.State.WALK -> manager.selectAnimation(HedgehogAnimationContract.KEY_WALK)
+            Hedgehog.State.RUN -> manager.selectAnimation(HedgehogAnimationContract.KEY_RUN)
+            Hedgehog.State.SPIN -> manager.selectAnimation(HedgehogAnimationContract.KEY_SPIN)
+            Hedgehog.State.SPINDASH -> manager.selectAnimation(HedgehogAnimationContract.KEY_SPINDASH)
+            Hedgehog.State.DUCK -> Unit
+            Hedgehog.State.LOOK_UP -> Unit
         }
     }
 
-    @Override
-    public void onPositionChange(float newPosX, float newPosY) {
-
+    override fun onPositionChange(newPosX: Float, newPosY: Float) {
     }
 
-    @Override
-    public void onLinearVelocityChange(float newVelX, float newVelY) {
-
+    override fun onLinearVelocityChange(newVelX: Float, newVelY: Float) {
     }
 
-    @Override
-    public void onAccelerationChange(float newAccX, float newAccY) {
-
+    override fun onAccelerationChange(newAccX: Float, newAccY: Float) {
     }
 
-    @Override
-    public void onHpChange(float newHp) {
-
+    override fun onHpChange(newHp: Float) {
     }
 
-    @Override
-    public void onLivesCountChange(int newLivesCount) {
-
+    override fun onLivesCountChange(newLivesCount: Int) {
     }
 
-    @Override
-    public void onRingsCountChange(int newRingsCount) {
-
+    override fun onRingsCountChange(newRingsCount: Int) {
     }
 
-    @Override
-    public void onOnGroundChange(boolean isOnGroundNow) {
-
+    override fun onOnGroundChange(isOnGroundNow: Boolean) {
     }
 
-    @Override
-    public void onChangeDirection(DynamicGameObject.Direction dir) {
-        manager.setFlipped(dir == DynamicGameObject.Direction.BACKWARD);
+    override fun onChangeDirection(dir: Direction) {
+        manager.isFlipped = dir == Direction.BACKWARD
     }
 }

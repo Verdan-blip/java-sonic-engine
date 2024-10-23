@@ -1,14 +1,15 @@
-package ru.vertuos.engine.physics;
+package ru.vertuos.engine.physics
 
-import ru.vertuos.engine.world.object.GameObject;
+import ru.vertuos.engine.math.Vector2f
+import ru.vertuos.engine.world.obj.GameObject
 
-public interface Physics<G extends GameObject> {
+interface Physics<G : GameObject> {
 
-    void applyForceToCenter(float forceX, float forceY);
+    fun applyForceToCenter(force: Vector2f)
 
-    void applyLinearImpulseToCenter(float impulseX, float impulseY);
+    fun applyLinearImpulseToCenter(impulse: Vector2f)
 
-    void applyImpulseXToCenter(float impulseX);
+    fun applyImpulseXToCenter(impulseX: Float)
 
-    void applyImpulseYToCenter(float impulseY);
+    fun applyImpulseYToCenter(impulseY: Float)
 }

@@ -1,27 +1,20 @@
-package ru.vertuos.ui.animation.container;
+package ru.vertuos.ui.animation.container
 
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation
 
-import java.util.HashMap;
-import java.util.Map;
+class AnimationContainer<T> {
 
-public class AnimationContainer<T> {
+    private val animationMap: MutableMap<String, Animation<T>> = HashMap()
 
-    private final Map<String, Animation<T>> animationMap;
-
-    public AnimationContainer() {
-        this.animationMap = new HashMap<>();
+    fun putAnimation(key: String, animation: Animation<T>) {
+        animationMap[key] = animation
     }
 
-    public void putAnimation(String key, Animation<T> animation) {
-        animationMap.put(key, animation);
+    fun remove(key: String): Animation<T>? {
+        return animationMap.remove(key)
     }
 
-    public Animation<T> remove(String key) {
-        return animationMap.remove(key);
-    }
-
-    public Animation<T> getAnimation(String key) {
-        return animationMap.get(key);
+    fun getAnimation(key: String): Animation<T>? {
+        return animationMap[key]
     }
 }

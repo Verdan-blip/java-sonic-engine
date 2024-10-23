@@ -1,25 +1,25 @@
-package ru.vertuos.engine.hedgehog.listener;
+package ru.vertuos.engine.hedgehog.listener
 
-import ru.vertuos.engine.hedgehog.Hedgehog;
-import ru.vertuos.engine.world.object.DynamicGameObject;
+import ru.vertuos.engine.hedgehog.Hedgehog
+import ru.vertuos.engine.world.obj.DynamicGameObject.Direction
 
-public interface HedgehogPropertyChangeListener {
+interface HedgehogPropertyChangeListener {
 
-    void onPositionChange(float newPosX, float newPosY);
+    fun onPositionChange(newPosX: Float, newPosY: Float)
 
-    void onLinearVelocityChange(float newVelX, float newVelY);
+    fun onLinearVelocityChange(newVelX: Float, newVelY: Float)
 
-    void onAccelerationChange(float newAccX, float newAccY);
+    fun onAccelerationChange(newAccX: Float, newAccY: Float)
 
-    void onStateChange(Hedgehog.State newState);
+    fun onStateChange(newState: Hedgehog.State)
 
-    void onHpChange(float newHp);
+    fun onHpChange(newHp: Float)
 
-    void onLivesCountChange(int newLivesCount);
+    fun onLivesCountChange(newLivesCount: Int)
 
-    void onRingsCountChange(int newRingsCount);
+    fun onRingsCountChange(newRingsCount: Int)
 
-    void onOnGroundChange(boolean isOnGroundNow);
+    fun onOnGroundChange(isOnGroundNow: Boolean)
 
-    void onChangeDirection(DynamicGameObject.Direction dir);
+    fun onChangeDirection(dir: Direction)
 }

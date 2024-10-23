@@ -1,14 +1,14 @@
-package ru.vertuos.engine.hedgehog.listener;
+package ru.vertuos.engine.hedgehog.listener
 
-public interface HedgehogEventListener {
+interface HedgehogEventListener {
 
-    void onGameOver();
+    fun onGameOver()
 
-    void onDie(int livesLeft);
+    fun onDie(livesLeft: Int)
 
-    void onTakeDamage(float damage);
+    fun onTakeDamage(damage: Float)
 
-    void onRecover(float recoverValue);
+    fun onRecover(recoverValue: Float)
 
-    void onLossRings();
+    fun onLossRings()
 }

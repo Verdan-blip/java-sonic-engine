@@ -1,61 +1,59 @@
-package ru.vertuos.graphics.input;
+package ru.vertuos.graphics.input
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import lombok.Getter;
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.InputAdapter
+import lombok.Getter
 
-@Getter
-public class KeyboardInputProcessor extends InputAdapter {
+class KeyboardInputProcessor : InputAdapter() {
 
-    private boolean isRightKeyPressed;
-    private boolean isLeftKeyPressed;
+    var isRightKeyPressed = false
+    var isLeftKeyPressed = false
 
-    private boolean isDownKeyPressed;
+    var isDownKeyPressed = false
 
-    private boolean isZKeyPressed;
+    var isZKeyPressed = false
 
-    public KeyboardInputProcessor() {
-        isRightKeyPressed = false;
-        isLeftKeyPressed = false;
-        isDownKeyPressed = false;
-        isZKeyPressed = false;
+    override fun keyDown(keycode: Int): Boolean {
+        when (keycode) {
+            Input.Keys.RIGHT -> {
+                isRightKeyPressed = true
+                return true
+            }
+            Input.Keys.LEFT -> {
+                isLeftKeyPressed = true
+                return true
+            }
+            Input.Keys.DOWN -> {
+                isDownKeyPressed = true
+                return true
+            }
+            Input.Keys.Z -> {
+                isZKeyPressed = true
+                return true
+            }
+        }
+        return false
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        switch (keycode) {
-            case Input.Keys.RIGHT:
-                isRightKeyPressed = true;
-                return true;
-            case Input.Keys.LEFT:
-                isLeftKeyPressed = true;
-                return true;
-            case Input.Keys.DOWN:
-                isDownKeyPressed = true;
-                return true;
-            case Input.Keys.Z:
-                isZKeyPressed = true;
-                return true;
+    override fun keyUp(keycode: Int): Boolean {
+        when (keycode) {
+            Input.Keys.RIGHT -> {
+                isRightKeyPressed = false
+                return true
+            }
+            Input.Keys.LEFT -> {
+                isLeftKeyPressed = false
+                return true
+            }
+            Input.Keys.DOWN -> {
+                isDownKeyPressed = false
+                return true
+            }
+            Input.Keys.Z -> {
+                isZKeyPressed = false
+                return true
+            }
         }
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        switch (keycode) {
-            case Input.Keys.RIGHT:
-                isRightKeyPressed = false;
-                return true;
-            case Input.Keys.LEFT:
-                isLeftKeyPressed = false;
-                return true;
-            case Input.Keys.DOWN:
-                isDownKeyPressed = false;
-                return true;
-            case Input.Keys.Z:
-                isZKeyPressed = false;
-                return true;
-        }
-        return false;
+        return false
     }
 }
