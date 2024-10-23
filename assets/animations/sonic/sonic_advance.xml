@@ -1,0 +1,93 @@
+<!DOCTYPE SpriteDecomposer>
+<sprites image="../../spritesheets/sonic_spritesheet.png" transparentColor="0080FF">
+ <animation title="walk" delay="90">
+  <cut w="24" x="18" y="57" h="34" row="1" col="1"/>
+  <cut w="27" x="45" y="58" h="33" row="1" col="1"/>
+  <cut w="31" x="75" y="58" h="33" row="1" col="1"/>
+  <cut w="27" x="109" y="58" h="33" row="1" col="1"/>
+  <cut w="24" x="141" y="57" h="34" row="1" col="1"/>
+  <cut w="29" x="168" y="58" h="33" row="1" col="1"/>
+  <cut w="33" x="201" y="58" h="33" row="1" col="1"/>
+  <cut w="29" x="237" y="57" h="34" row="1" col="1"/>
+ </animation>
+ <animation title="idle" delay="90">
+  <cut w="23" x="23" y="17" h="33" row="1" col="1"/>
+  <cut w="24" x="50" y="18" h="32" row="1" col="1"/>
+  <cut w="24" x="77" y="19" h="31" row="1" col="1"/>
+  <cut w="22" x="109" y="18" h="32" row="1" col="1"/>
+  <cut w="23" x="138" y="17" h="33" row="1" col="1"/>
+  <cut w="23" x="165" y="17" h="33" row="1" col="1"/>
+  <cut w="23" x="192" y="18" h="32" row="1" col="1"/>
+  <cut w="23" x="218" y="17" h="33" row="1" col="1"/>
+ </animation>
+ <animation title="run" delay="90">
+  <cut w="33" x="270" y="57" h="34" row="1" col="1"/>
+  <cut w="33" x="306" y="58" h="33" row="1" col="1"/>
+  <cut w="32" x="342" y="57" h="34" row="1" col="1"/>
+  <cut w="34" x="377" y="58" h="33" row="1" col="1"/>
+ </animation>
+ <animation title="spin" delay="90">
+  <cut w="24" x="18" y="151" h="24" row="1" col="1"/>
+  <cut w="22" x="45" y="152" h="22" row="1" col="1"/>
+  <cut w="24" x="70" y="151" h="24" row="1" col="1"/>
+  <cut w="26" x="97" y="150" h="26" row="1" col="1"/>
+ </animation>
+ <animation title="spindash" delay="90">
+  <cut w="22" x="17" y="194" h="23" row="1" col="1"/>
+  <cut w="22" x="42" y="195" h="22" row="1" col="1"/>
+  <cut w="20" x="67" y="196" h="21" row="1" col="1"/>
+  <cut w="24" x="90" y="194" h="23" row="1" col="1"/>
+ </animation>
+ <animation title="spindash_critical" delay="90">
+  <cut w="23" x="117" y="192" h="25" row="1" col="1"/>
+  <cut w="20" x="142" y="194" h="23" row="1" col="1"/>
+  <cut w="20" x="164" y="194" h="23" row="1" col="1"/>
+  <cut w="23" x="186" y="192" h="25" row="1" col="1"/>
+ </animation>
+ <animation title="stop" delay="90">
+  <cut w="27" x="415" y="57" h="34" row="1" col="1"/>
+  <cut w="32" x="446" y="57" h="34" row="1" col="1"/>
+  <cut w="31" x="481" y="55" h="36" row="1" col="1"/>
+ </animation>
+ <animation title="look_up" delay="90">
+  <cut w="25" x="214" y="183" h="34" row="1" col="1"/>
+  <cut w="26" x="242" y="182" h="35" row="1" col="1"/>
+  <cut w="24" x="271" y="181" h="36" row="1" col="1"/>
+  <cut w="22" x="298" y="181" h="36" row="1" col="1"/>
+  <cut w="24" x="323" y="181" h="36" row="1" col="1"/>
+  <cut w="23" x="351" y="181" h="36" row="1" col="1"/>
+ </animation>
+ <animation title="duck" delay="90">
+  <cut w="22" x="670" y="60" h="31" row="1" col="1"/>
+  <cut w="25" x="696" y="62" h="29" row="1" col="1"/>
+  <cut w="28" x="724" y="65" h="26" row="1" col="1"/>
+  <cut w="28" x="755" y="65" h="26" row="1" col="1"/>
+ </animation>
+ <animation title="balancing_critical" delay="90">
+  <cut w="27" x="319" y="318" h="34" row="1" col="1"/>
+  <cut w="34" x="349" y="315" h="37" row="1" col="1"/>
+  <cut w="35" x="386" y="314" h="38" row="1" col="1"/>
+  <cut w="29" x="427" y="313" h="39" row="1" col="1"/>
+  <cut w="28" x="460" y="317" h="35" row="1" col="1"/>
+  <cut w="29" x="491" y="314" h="38" row="1" col="1"/>
+  <cut w="29" x="527" y="315" h="37" row="1" col="1"/>
+  <cut w="34" x="559" y="314" h="38" row="1" col="1"/>
+  <cut w="37" x="596" y="317" h="35" row="1" col="1"/>
+ </animation>
+ <animation title="balancing" delay="90">
+  <cut w="28" x="18" y="319" h="33" row="1" col="1"/>
+  <cut w="31" x="49" y="316" h="36" row="1" col="1"/>
+  <cut w="29" x="83" y="315" h="37" row="1" col="1"/>
+  <cut w="30" x="116" y="314" h="38" row="1" col="1"/>
+  <cut w="29" x="149" y="322" h="30" row="1" col="1"/>
+  <cut w="29" x="181" y="319" h="33" row="1" col="1"/>
+  <cut w="30" x="213" y="317" h="35" row="1" col="1"/>
+  <cut w="32" x="246" y="315" h="37" row="1" col="1"/>
+  <cut w="32" x="281" y="322" h="30" row="1" col="1"/>
+ </animation>
+ <animation title="jump" delay="90">
+  <cut w="31" x="756" y="362" h="37" row="1" col="1"/>
+  <cut w="31" x="790" y="362" h="37" row="1" col="1"/>
+  <cut w="30" x="823" y="365" h="34" row="1" col="1"/>
+ </animation>
+</sprites>

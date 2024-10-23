@@ -1,0 +1,62 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "mossy-core.tsx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "mossy-background.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 1
+        },
+        "mossy-core.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 0.25
+        },
+        "mossy-decorations.tsx": {
+            "scaleInDock": 0.125,
+            "scaleInEditor": 1
+        },
+        "mossy-hills.tsx": {
+            "scaleInDock": 0.25,
+            "scaleInEditor": 1
+        },
+        "mossy.tmx": {
+            "scale": 0.0625,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 6408,
+                "y": 5576
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/islam/IdeaProjects/SonicTest/assets/maps/mossy/Mossy Assets/Mossy Tileset",
+    "map.height": 16,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 512,
+    "map.tileWidth": 512,
+    "map.width": 16,
+    "openFiles": [
+        "mossy.tmx",
+        "mossy-core.tsx",
+        "mossy-hills.tsx",
+        "mossy-decorations.tsx",
+        "mossy-background.tsx"
+    ],
+    "project": "mossy.tiled-project",
+    "recentFiles": [
+        "mossy.tmx",
+        "mossy-background.tsx",
+        "mossy-decorations.tsx",
+        "mossy-hills.tsx",
+        "mossy-core.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 512,
+        "width": 512
+    }
+}

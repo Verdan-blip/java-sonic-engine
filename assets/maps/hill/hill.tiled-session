@@ -1,0 +1,19 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+    },
+    "last.imagePath": "C:/Users/islam/IdeaProjects/SonicTest/assets/maps/hill",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+    ],
+    "project": "hill.tiled-project",
+    "recentFiles": [
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
