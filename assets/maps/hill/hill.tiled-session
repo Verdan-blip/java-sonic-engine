@@ -3,17 +3,34 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "hill_spritesheet.tsx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
+        "hill.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 344.66666666666663,
+                "y": 503.33333333333326
+            }
+        },
+        "hill_spritesheet.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        }
     },
     "last.imagePath": "C:/Users/islam/IdeaProjects/SonicTest/assets/maps/hill",
     "map.lastUsedFormat": "tmx",
     "openFiles": [
+        "hill.tmx",
+        "hill_spritesheet.tsx"
     ],
     "project": "hill.tiled-project",
     "recentFiles": [
+        "hill.tmx",
+        "hill_spritesheet.tsx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }
