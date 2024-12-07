@@ -26,6 +26,8 @@ value class Vector2f(private val packedValue: Long) {
 
     infix fun proj(axis: Vector2f): Float = dot(axis) / axis.length
 
+    override fun toString(): String = "x: $x, y: $y"
+
     companion object {
 
         val Zero = Vector2f(0f, 0f)
@@ -34,7 +36,7 @@ value class Vector2f(private val packedValue: Long) {
 
 operator fun Vector2f.plus(other: Vector2f): Vector2f = Vector2f(x = x + other.x, y = y + other.y)
 
-operator fun Vector2f.minus(other: Vector2f): Vector2f = Vector2f(x = x + other.x, y = y + other.y)
+operator fun Vector2f.minus(other: Vector2f): Vector2f = Vector2f(x = x - other.x, y = y - other.y)
 
 operator fun Vector2f.div(number: Float): Vector2f = Vector2f(x = x / number, y = y / number)
 

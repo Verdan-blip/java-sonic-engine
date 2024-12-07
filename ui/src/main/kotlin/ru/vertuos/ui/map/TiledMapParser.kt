@@ -4,10 +4,13 @@ import com.badlogic.gdx.maps.MapLayer
 import com.badlogic.gdx.maps.MapProperties
 import com.badlogic.gdx.math.Rectangle
 import ru.vertuos.engine.map.CollisionableGameObject
-import ru.vertuos.engine.map.InclineObject
-import ru.vertuos.engine.map.PlatformObject
+import ru.vertuos.engine.map.inclines.CircledDownhillObject
+import ru.vertuos.engine.map.inclines.CircledUphillObject
+import ru.vertuos.engine.map.inclines.DownhillObject
+import ru.vertuos.engine.map.inclines.UphillObject
+import ru.vertuos.engine.map.obstacles.PlatformObject
 import ru.vertuos.engine.math.Vector2f
-import ru.vertuos.ui.contracts.toMetres
+import ru.vertuos.ui.contracts.pixelsToMetres
 import java.util.ArrayList
 
 class TiledMapParser {
@@ -28,12 +31,25 @@ class TiledMapParser {
                     MapParsingContract.NAME_PLATFORM -> collisionables.add(
                         PlatformObject(Vector2f(x, y), Vector2f(width, height))
                     )
-                    MapParsingContract.NAME_INCLINE -> collisionables.add(
-                        InclineObject(Vector2f(x, y), Vector2f(width, height))
+                    MapParsingContract.NAME_UPHILL -> collisionables.add(
+                        UphillObject(Vector2f(x, y), Vector2f(width, height))
                     )
-                    MapParsingContract.NAME_CIRCLED_INCLINE -> Unit
-                    MapParsingContract.NAME_HYPERBOLIC_INCLINE -> Unit
-                    else -> {}
+                    MapParsingContract.NAME_DOWNHILL -> collisionables.add(
+                        DownhillObject(Vector2f(x, y), Vector2f(width, height))
+                    )
+                    MapParsingContract.NAME_CIRCLED_UPHILL -> collisionables.add(
+                        CircledUphillObject(Vector2f(x, y), Vector2f(width, height))
+                    )
+                    MapParsingContract.NAME_CIRCLED_DOWNHILL -> collisionables.add(
+                        CircledDownhillObject(Vector2f(x, y), Vector2f(width, height))
+                    )
+                    MapParsingContract.NAME_HYPERBOLIC_UPHILL -> collisionables.add(
+                        UphillObject(Vector2f(x, y), Vector2f(width, height))
+                    )
+                    MapParsingContract.NAME_HYPERBOLIC_DOWNHILL -> collisionables.add(
+                        DownhillObject(Vector2f(x, y), Vector2f(width, height))
+                    )
+                    else -> Unit
                 }
             }
         }
@@ -45,10 +61,10 @@ class TiledMapParser {
     )
 
     private fun pixelsRectangleToMetresRectangle(outRect: Rectangle) {
-        outRect.x = outRect.x.toMetres()
-        outRect.y = outRect.y.toMetres()
-        outRect.width = outRect.width.toMetres()
-        outRect.height = outRect.height.toMetres()
+        outRect.x = outRect.x.pixelsToMetres()
+        outRect.y = outRect.y.pixelsToMetres()
+        outRect.width = outRect.width.pixelsToMetres()
+        outRect.height = outRect.height.pixelsToMetres()
     }
 
     private fun scale(outRect: Rectangle, scale: Float) {

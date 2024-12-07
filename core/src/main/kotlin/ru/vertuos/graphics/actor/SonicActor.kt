@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import ru.vertuos.engine.hedgehog.sonic.Sonic
 import ru.vertuos.engine.hedgehog.sonic.SonicMechanics
+import ru.vertuos.engine.math.toDegrees
 import ru.vertuos.graphics.controller.SonicController
 import ru.vertuos.graphics.hedgehog.listener.SonicStateListener
 import ru.vertuos.graphics.input.KeyboardInputProcessor
@@ -13,7 +14,7 @@ import ru.vertuos.ui.animation.contracts.HedgehogAnimationContract
 import ru.vertuos.ui.animation.manager.AnimationManager
 import ru.vertuos.ui.animation.parser.AnimationParser
 import ru.vertuos.ui.animation.parser.TextureRegionAnimationParser
-import ru.vertuos.ui.contracts.toPixels
+import ru.vertuos.ui.contracts.metresToPixels
 
 class SonicActor(
     private val sonic: Sonic,
@@ -48,14 +49,19 @@ class SonicActor(
     override fun draw(batch: Batch, dt: Float) {
         val isFlip = animationManager.isFlipped
         val region = animationManager.getCurrentFrame(dt)
-        val posPixels = sonic.position.toPixels()
+        val posPixels = sonic.position.metresToPixels()
         region?.also { reg ->
             batch.draw(
                 reg,
                 if (isFlip) posPixels.x + reg.regionWidth.toFloat() else posPixels.x,
                 posPixels.y,
-                if (isFlip) -reg.regionWidth.toFloat() else reg.regionHeight.toFloat(),
-                reg.regionHeight.toFloat()
+                if (isFlip) -reg.regionWidth / 2f else reg.regionWidth / 2f,
+                reg.regionHeight / 2f,
+                if (isFlip) -reg.regionWidth.toFloat() else reg.regionWidth.toFloat(),
+                reg.regionHeight.toFloat(),
+                1f,
+                1f,
+                sonic.angle.toDegrees()
             )
         }
     }

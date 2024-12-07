@@ -28,8 +28,8 @@ fun GameObject.setPositionX(x: Float) {
     position = position.copied(x = x)
 }
 
-fun GameObject.setPositionY(x: Float) {
-    position = position.copied(x = x)
+fun GameObject.setPositionY(y: Float) {
+    position = position.copied(y = y)
 }
 
 fun DynamicGameObject.setLinearVelocityX(x: Float) {
@@ -38,4 +38,12 @@ fun DynamicGameObject.setLinearVelocityX(x: Float) {
 
 fun DynamicGameObject.setLinearVelocityY(y: Float) {
     linearVelocity = linearVelocity.copied(y = y)
+}
+
+fun DynamicGameObject.setAccelerationX(x: Float) {
+    acceleration = acceleration.copied(x = x)
+}
+
+fun DynamicGameObject.setAccelerationY(y: Float) {
+    acceleration = acceleration.copied(y = y)
 }

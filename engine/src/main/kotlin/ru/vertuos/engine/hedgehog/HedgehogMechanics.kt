@@ -1,15 +1,15 @@
 package ru.vertuos.engine.hedgehog
 
-import ru.vertuos.engine.math.Vector2f
-import ru.vertuos.engine.math.isZero
-import ru.vertuos.engine.math.isZeroByX
+import ru.vertuos.engine.math.*
 import ru.vertuos.engine.physics.DynamicObjectPhysics
 import ru.vertuos.engine.util.absoluteVelocity
 import ru.vertuos.engine.world.obj.DynamicGameObject
+import kotlin.math.cos
+import kotlin.math.sin
 
 abstract class HedgehogMechanics<H : Hedgehog, C>(hedgehog: H) : DynamicObjectPhysics<H>(hedgehog) {
 
-    private var accumulatedImpulse: Float = 0f
+    private var accumulatedImpulse: Float = IMPULSE_MIN_VALUE
         set(value) {
             if (value compareTo IMPULSE_MAX_VALUE <= 0) {
                 field = value
@@ -31,28 +31,32 @@ abstract class HedgehogMechanics<H : Hedgehog, C>(hedgehog: H) : DynamicObjectPh
         when (command) {
             CommonCommand.GO_FORWARD -> {
                 if (obj.state != Hedgehog.State.SPIN || obj.isJumped) {
-                    applyForceToCenter(Vector2f(x = FORCE_TO_MOVE, y = 0f))
+                    obj.groundAcceleration += ACCELERATION_VALUE
                     obj.direction = DynamicGameObject.Direction.FORWARD
                 }
             }
             CommonCommand.GO_BACKWARD -> {
                 if (obj.state != Hedgehog.State.SPIN || obj.isJumped) {
-                    applyForceToCenter(Vector2f(x = -FORCE_TO_MOVE, y = 0f))
+                    obj.groundAcceleration -= ACCELERATION_VALUE
                     obj.direction = DynamicGameObject.Direction.BACKWARD
                 }
             }
             CommonCommand.HIDE -> {
-                if (obj.linearVelocity.isZeroByX) {
-                    obj.state = Hedgehog.State.DUCK
+                obj.state = if (obj.linearVelocity.isZeroByX) {
+                    Hedgehog.State.DUCK
                 } else {
-                    obj.state = Hedgehog.State.SPIN
+                    Hedgehog.State.SPIN
                 }
             }
             CommonCommand.JUMP -> {
                 if (obj.isOnGround) {
-                    applyImpulseYToCenter(IMPULSE_TO_JUMP)
+                    obj.linearVelocity += Vector2f(
+                        x = JUMP_VALUE * -sin(obj.angle),
+                        y = JUMP_VALUE * cos(obj.angle)
+                    )
                     obj.state = Hedgehog.State.SPIN
                     obj.isJumped = true
+                    obj.isOnGround = false
                 }
             }
             CommonCommand.ACCELERATE_BY_SPINNING -> {
@@ -62,12 +66,12 @@ abstract class HedgehogMechanics<H : Hedgehog, C>(hedgehog: H) : DynamicObjectPh
                 }
             }
             CommonCommand.DASH -> {
-                if (obj.direction === DynamicGameObject.Direction.FORWARD) {
-                    applyLinearImpulseToCenter(Vector2f(x = accumulatedImpulse, y = 0f))
+                if (obj.direction == DynamicGameObject.Direction.FORWARD) {
+                    obj.groundVelocity = accumulatedImpulse
                 } else {
-                    applyLinearImpulseToCenter(Vector2f(x = -accumulatedImpulse, y = 0f))
+                    obj.groundVelocity = -accumulatedImpulse
                 }
-                accumulatedImpulse = 0f
+                accumulatedImpulse = IMPULSE_MIN_VALUE
                 obj.state = Hedgehog.State.SPIN
             }
         }
@@ -112,15 +116,17 @@ abstract class HedgehogMechanics<H : Hedgehog, C>(hedgehog: H) : DynamicObjectPh
 
     companion object {
 
-        const val MAX_WALK_VELOCITY_VALUE: Float = 16f
-        const val MAX_IDLE_VELOCITY_X_VALUE: Float = 0.01f
-        const val MAX_IDLE_VELOCITY_Y_VALUE: Float = 0.01f
-        const val MAX_VELOCITY_VALUE: Float = 20f
+        const val MAX_WALK_VELOCITY_VALUE = 16f
+        const val MAX_IDLE_VELOCITY_X_VALUE = 0.01f
+        const val MAX_IDLE_VELOCITY_Y_VALUE = 0.01f
+        const val MAX_VELOCITY_VALUE = 20f
 
-        const val FORCE_TO_MOVE: Float = 175f
-        const val IMPULSE_TO_JUMP: Float = 350f
-        const val IMPULSE_INCREASE_FACTOR: Float = 2f
-        const val IMPULSE_MAX_VALUE: Float = 800f
-        const val IMPULSE_MIN_VALUE: Float = 200f
+        const val FORCE_TO_MOVE = 175f
+        const val ACCELERATION_VALUE = 10f
+        const val JUMP_VALUE = 10f
+        const val IMPULSE_INCREASE_FACTOR = 2f
+
+        const val IMPULSE_MAX_VALUE = 50f
+        const val IMPULSE_MIN_VALUE = 10f
     }
 }

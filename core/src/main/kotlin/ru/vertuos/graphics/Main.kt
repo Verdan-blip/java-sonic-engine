@@ -9,15 +9,18 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
 import com.badlogic.gdx.utils.ScreenUtils
 import ru.vertuos.engine.hedgehog.sonic.Sonic
 import ru.vertuos.engine.hedgehog.sonic.SonicMechanics
+import ru.vertuos.engine.math.Rectangle
 import ru.vertuos.engine.math.Vector2f
 import ru.vertuos.engine.world.TiledWorld
 import ru.vertuos.engine.world.World
 import ru.vertuos.graphics.actor.SonicActor
 import ru.vertuos.graphics.camera.FollowingCamera
 import ru.vertuos.graphics.input.KeyboardInputProcessor
-import ru.vertuos.ui.contracts.toMetres
+import ru.vertuos.ui.contracts.pixelsToMetres
 import ru.vertuos.ui.map.MapParsingContract
 import ru.vertuos.ui.map.TiledMapParser
+import ru.vertuos.ui.map.height
+import ru.vertuos.ui.map.width
 
 class Main : ApplicationAdapter() {
 
@@ -42,10 +45,10 @@ class Main : ApplicationAdapter() {
 
         val tiledMap = TmxMapLoader().load("maps/hill/hill.tmx")
         val mapProperties = tiledMap.properties
-        val mapWidth: Int = mapProperties.get("width", Int::class.java)
+        val mapWidth = mapProperties.width
         val mapTileWidth: Int = mapProperties.get("tilewidth", Int::class.java)
 
-        val mapHeight: Int = mapProperties.get("height", Int::class.java)
+        val mapHeight = mapProperties.height
         val mapTileHeight: Int = mapProperties.get("tileheight", Int::class.java)
 
         val layers = tiledMap.layers
@@ -57,7 +60,7 @@ class Main : ApplicationAdapter() {
         world = TiledWorld()
 
         val sonic = Sonic()
-        sonic.position = Vector2f(100f, 600f).toMetres()
+        sonic.position = Vector2f(300f, 300f).pixelsToMetres()
 
         val sonicMechanics = SonicMechanics(sonic)
 
@@ -69,15 +72,9 @@ class Main : ApplicationAdapter() {
         followingCamera = FollowingCamera()
         followingCamera.setToOrtho(false, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
         followingCamera.followingObject = sonic
-        followingCamera.boundsWhereToFollow = ru.vertuos.engine.math.Rectangle(
-            Vector2f(
-                x = 0f,
-                y = 0f
-            ),
-            Vector2f(
-                x = mapWidth * mapTileWidth * UNIT_SCALE_TO_512,
-                y = mapHeight * mapTileHeight * UNIT_SCALE_TO_512
-            )
+        followingCamera.boundsWhereToFollow = Rectangle(
+            Vector2f(x = 0f, y = 0f),
+            Vector2f(x = mapWidth * mapTileWidth * UNIT_SCALE_TO_512, y = mapHeight * mapTileHeight * UNIT_SCALE_TO_512)
         )
 
         followingCamera.update()
@@ -87,7 +84,7 @@ class Main : ApplicationAdapter() {
     }
 
     override fun render() {
-        val dt: Float = Gdx.graphics.deltaTime
+        val dt = Gdx.graphics.deltaTime
 
         sonicActor.processInput()
 
@@ -100,7 +97,7 @@ class Main : ApplicationAdapter() {
         batch.begin()
         tiledMapRenderer.setView(followingCamera)
         tiledMapRenderer.render()
-        sonicActor.draw(batch, 1f)
+        sonicActor.draw(batch, dt)
         batch.end()
     }
 

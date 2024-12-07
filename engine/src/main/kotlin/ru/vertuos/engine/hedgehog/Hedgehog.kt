@@ -11,20 +11,26 @@ abstract class Hedgehog : DynamicGameObject() {
 
     var hp: Float = 0f
         set(value) {
-            field = value
-            propertyChangeListener?.onHpChange(value)
+            if (field != value) {
+                field = value
+                propertyChangeListener?.onHpChange(value)
+            }
         }
 
     var ringsCount: Int = 0
         set(value) {
-            field = value
-            propertyChangeListener?.onRingsCountChange(value)
+            if (field != value) {
+                field = value
+                propertyChangeListener?.onRingsCountChange(value)
+            }
         }
 
     var livesCount: Int = 0
         set(value) {
-            field = value
-            propertyChangeListener?.onLivesCountChange(value)
+            if (field != value) {
+                field = value
+                propertyChangeListener?.onLivesCountChange(value)
+            }
         }
 
     var jumpValue: Float = 0f
@@ -32,13 +38,21 @@ abstract class Hedgehog : DynamicGameObject() {
 
     var isJumped: Boolean = false
 
-    var state: ru.vertuos.engine.hedgehog.Hedgehog.State =
-        _root_ide_package_.ru.vertuos.engine.hedgehog.Hedgehog.State.IDLE
+    var state: State = State.IDLE
         set(value) {
-            field = value
-            propertyChangeListener?.onStateChange(value)
+            if (field != value) {
+                field = value
+                propertyChangeListener?.onStateChange(value)
+            }
         }
 
+    override var direction: Direction = Direction.FORWARD
+        set(value) {
+            if (field != value) {
+                field = value
+                propertyChangeListener?.onChangeDirection(value)
+            }
+        }
 
     var eventListener: HedgehogEventListener? = null
     var propertyChangeListener: HedgehogPropertyChangeListener? = null

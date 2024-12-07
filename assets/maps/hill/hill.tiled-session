@@ -3,17 +3,17 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "hill_spritesheet.tsx",
+    "activeFile": "hill.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "fileStates": {
         "hill.tmx": {
-            "scale": 0.75,
+            "scale": 2,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 344.66666666666663,
-                "y": 503.33333333333326
+                "x": 1068.75,
+                "y": 715.75
             }
         },
         "hill_spritesheet.tsx": {
@@ -29,8 +29,8 @@
     ],
     "project": "hill.tiled-project",
     "recentFiles": [
-        "hill.tmx",
-        "hill_spritesheet.tsx"
+        "hill_spritesheet.tsx",
+        "hill.tmx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }

@@ -4,9 +4,10 @@ import ru.vertuos.engine.util.setLinearVelocityY
 import ru.vertuos.engine.world.obj.DynamicGameObject
 
 class VerticalGravityResolver : GravityResolver<DynamicGameObject> {
+
     override fun resolve(obj: DynamicGameObject, dt: Float) {
         if (!obj.isOnGround) {
-            obj.setLinearVelocityY(-G)
+            obj.setLinearVelocityY(obj.linearVelocity.y - G * obj.mass * dt)
         }
     }
 

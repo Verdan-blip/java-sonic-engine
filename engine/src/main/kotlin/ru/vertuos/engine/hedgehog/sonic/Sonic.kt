@@ -3,7 +3,7 @@ package ru.vertuos.engine.hedgehog.sonic
 import ru.vertuos.engine.hedgehog.Hedgehog
 import ru.vertuos.engine.math.Vector2f
 
-class Sonic : _root_ide_package_.ru.vertuos.engine.hedgehog.Hedgehog() {
+class Sonic : Hedgehog() {
 
     init {
         ringsCount = 0

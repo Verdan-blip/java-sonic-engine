@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="128" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="26">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="128" height="30" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="36">
  <tileset firstgid="1" source="hill_spritesheet.tsx"/>
  <layer id="1" name="Main" width="128" height="30">
   <data encoding="csv">
@@ -37,25 +37,34 @@
  </layer>
  <objectgroup id="2" name="Collision">
   <object id="2" name="platform" x="0" y="832" width="384" height="32"/>
-  <object id="3" name="incline" x="384.333" y="768.333" width="128" height="63.6667"/>
-  <object id="4" name="platform" x="514" y="768.667" width="381.667" height="32"/>
-  <object id="5" name="circled_incline" x="897" y="641" width="127" height="127"/>
+  <object id="3" name="hyperbolic_uphill" x="384" y="768" width="128" height="64"/>
+  <object id="4" name="platform" x="512" y="768" width="384" height="32"/>
+  <object id="5" name="circled_uphill" x="896" y="640" width="128" height="128"/>
   <object id="6" name="platform" x="704" y="320" width="256" height="32"/>
-  <object id="7" name="incline" x="640" y="288" width="64" height="32"/>
+  <object id="7" name="downhill" x="640" y="288" width="64" height="32"/>
   <object id="8" name="platform" x="128" y="288" width="512" height="32"/>
   <object id="9" name="platform" x="1120" y="416" width="128" height="32"/>
   <object id="10" name="platform" x="1376" y="352" width="128" height="32"/>
   <object id="11" name="platform" x="1568" y="288" width="256" height="32"/>
   <object id="13" name="platform" x="1888" y="288" width="128" height="32.25"/>
-  <object id="14" name="incline" x="2080" y="224" width="64" height="64"/>
-  <object id="15" name="incline" x="2144.25" y="192" width="64" height="32"/>
+  <object id="14" name="uphill" x="2080" y="224" width="64" height="64"/>
+  <object id="15" name="uphill" x="2144.25" y="192" width="64" height="32"/>
   <object id="16" name="platform" x="2272" y="192" width="384" height="32"/>
-  <object id="17" name="hyperbolic_incline" x="2656" y="192" width="128" height="96"/>
+  <object id="17" name="hyperbolic_downhill" x="2656" y="192" width="128" height="96"/>
   <object id="18" name="platform" x="2784" y="256" width="64" height="32"/>
-  <object id="19" name="incline" x="2912" y="256" width="192" height="96"/>
+  <object id="19" name="downhill" x="2912" y="256" width="192" height="96"/>
   <object id="21" name="platform" x="3168" y="416" width="384" height="33"/>
-  <object id="22" name="incline" x="3552" y="416" width="128" height="96"/>
+  <object id="22" name="hyperbolic_downhill" x="3552" y="416" width="128" height="96"/>
   <object id="23" name="platform" x="3680" y="480" width="128" height="32"/>
-  <object id="25" name="incline" x="1312" y="576" width="128" height="96"/>
+  <object id="25" name="hyperbolic_uphill" x="1312" y="576" width="128" height="96"/>
+  <object id="26" name="uphill" x="1632" y="704" width="64" height="32"/>
+  <object id="27" name="downhill" x="1696" y="704" width="64" height="32"/>
+  <object id="29" name="circled_downhill" x="1024" y="640" width="64" height="64"/>
+  <object id="30" name="hyperbolic_downhill" x="1088" y="704" width="128" height="64"/>
+  <object id="31" name="hyperbolic_downhill" x="1216" y="768" width="128" height="64"/>
+  <object id="32" name="downhill" x="1344" y="832" width="64" height="32"/>
+  <object id="33" name="platform" x="1408" y="864" width="512" height="32"/>
+  <object id="34" name="circled_uphill" x="1920" y="800" width="64" height="64"/>
+  <object id="35" name="platform" x="1984" y="800" width="2112" height="32"/>
  </objectgroup>
 </map>
